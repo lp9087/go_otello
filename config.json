@@ -1,0 +1,5 @@
+{
+  "connection_string": "postgres://user:password@localhost:5434/restaurant_assistant",
+
+  "port": 8080
+}
