@@ -1,8 +1,9 @@
 package repository
 
 import (
-	"github.com/lp9087/go_otello_lk/internal/database"
+	"github.com/lp9087/go_otello_lk/internal/database/models"
 	"gorm.io/gorm"
+	"log"
 )
 
 type HotelRepository struct {
@@ -15,14 +16,17 @@ func CreateHotelRepository(db *gorm.DB) *HotelRepository {
 	}
 }
 
-func (r *HotelRepository) GetList() []database.Hotel {
-	var products []database.Hotel
-	r.db.Table("hotel_hotel").Find(&products)
-	return products
+func (r *HotelRepository) GetList() []models.Hotel {
+	var hotels []models.Hotel
+	err := r.db.Preload("RoomType").Find(&hotels).Error
+	if err != nil {
+		log.Fatal("Can't load data from SQL")
+	}
+	return hotels
 }
 
-func (r *HotelRepository) GetById(id string) (database.Hotel, error) {
-	var product database.Hotel
-	resp := r.db.Table("hotel_hotel").First(&product, id)
+func (r *HotelRepository) GetById(id string) (models.Hotel, error) {
+	var product models.Hotel
+	resp := r.db.First(&product, id)
 	return product, resp.Error
 }
