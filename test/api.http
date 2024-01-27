@@ -1,3 +1,11 @@
 GET localhost:8080/ping
 ###
 GET localhost:8080/dashboard/ping
+###
+GET localhost:8080/dashboard/favourites_hotels/string
+###
+POST localhost:8080/dashboard/favourites_hotels
+
+{
+"message": "Kirill"
+}
