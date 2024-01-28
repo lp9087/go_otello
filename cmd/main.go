@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	"github.com/lp9087/go_otello_dashboard_api/api/rest"
 	"github.com/lp9087/go_otello_dashboard_api/configs"
+	rest_ "github.com/lp9087/go_otello_dashboard_api/internal/controller/rest"
 	"log"
 	"net/http"
 	"os"
@@ -23,8 +23,8 @@ func GetEnv() {
 }
 
 func getRoutes() *gin.Engine {
-	router := rest.SetupRouter()
-	rest.AddDashboardRoutes(router)
+	router := rest_.SetupRouter()
+	rest_.AddDashboardRoutes(router)
 	return router
 }
 

@@ -13,6 +13,7 @@ func AddDashboardRoutes(route *gin.Engine) {
 	})
 	dashboard.GET("/favourites_hotels/:id", GetFavouritesHotels)
 	dashboard.POST("/favourites_hotels", GetFavouritesHotelsPost)
+	dashboard.GET("/first_dashboard", GetFirstDashboard)
 }
 
 func GetFavouritesHotels(request *gin.Context) {
@@ -29,4 +30,8 @@ func GetFavouritesHotelsPost(request *gin.Context) {
 	}
 
 	request.String(http.StatusOK, Request.Message)
+}
+
+func GetFirstDashboard(request *gin.Context) {
+
 }
