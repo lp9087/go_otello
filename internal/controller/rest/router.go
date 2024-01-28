@@ -5,6 +5,12 @@ import (
 	"net/http"
 )
 
+func GetRoutes() *gin.Engine {
+	router := SetupRouter()
+	AddDashboardRoutes(router)
+	return router
+}
+
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
