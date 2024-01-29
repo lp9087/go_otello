@@ -16,6 +16,6 @@ func NewPGFirstDashboardRepo(db *sqlx.DB) *PGFirstDashboardRepo {
 	}
 }
 
-func (pr *PGFirstDashboardRepo) Get(ctx context.Context) ([]entity.FirstDashboard, error) {
+func (pr *PGFirstDashboardRepo) Store(ctx context.Context) ([]entity.FirstDashboard, error) {
 	return nil, nil
 }

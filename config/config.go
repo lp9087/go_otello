@@ -7,9 +7,9 @@ import (
 
 type (
 	Config struct {
-		HTTP `yaml:"http"`
+		HTTP `env:"http"`
 		//Log    `yaml:"logger"`
-		DB `yaml:"postgres"`
+		DB `env:"postgres"`
 	}
 
 	HTTP struct {

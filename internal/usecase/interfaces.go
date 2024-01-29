@@ -1,4 +1,4 @@
-package repository
+package usecase
 
 import (
 	"context"
@@ -6,5 +6,9 @@ import (
 )
 
 type FirstDashboardRepo interface {
+	Store(ctx context.Context) ([]entity.FirstDashboard, error)
+}
+
+type FirstDashboard interface {
 	Get(ctx context.Context) ([]entity.FirstDashboard, error)
 }
