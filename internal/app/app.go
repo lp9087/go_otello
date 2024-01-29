@@ -6,8 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lp9087/go_otello_dashboard_api/config"
 	"github.com/lp9087/go_otello_dashboard_api/internal/controller/rest/v1"
-	"github.com/lp9087/go_otello_dashboard_api/internal/usecase"
-	"github.com/lp9087/go_otello_dashboard_api/internal/usecase/repository"
 	"github.com/lp9087/go_otello_dashboard_api/pkg/postgres"
 	"log"
 	"net/http"
@@ -27,14 +25,14 @@ func Run(cfg *config.Config) {
 	}
 	defer db.Close()
 	// Use case
-	mostLoyalHotelsUseCase := usecase.NewFirstDashboardUseCase(
-		repository.NewPGFirstDashboardRepo(db.Connect),
-	)
+
+	mostLoyalHotelsUseCase := config.InitializeFirstDashboardUseCase(db.Connect)
 
 	// Start Router
 	router := gin.New()
-	groupRouter := v1.NewRouter(router)
-	v1.NewDashboardRoutes(groupRouter, mostLoyalHotelsUseCase)
+	v1Router := v1.NewRouter(router)
+	dashboardRouter := v1Router.Group("/dashboard")
+	v1.NewDashboardRoutes(dashboardRouter, mostLoyalHotelsUseCase)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.HTTP.Port),

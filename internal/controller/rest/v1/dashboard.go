@@ -13,10 +13,8 @@ type dashboardRoutes struct {
 
 func NewDashboardRoutes(handler *gin.RouterGroup, useCase usecase.FirstDashboard) {
 	r := &dashboardRoutes{useCase}
-
-	h := handler.Group("/dashboard")
 	{
-		h.GET("/mostLoyalHotels", r.mostLoyalHotels)
+		handler.GET("/mostLoyalHotels", r.mostLoyalHotels)
 	}
 }
 
