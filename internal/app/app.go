@@ -33,7 +33,8 @@ func Run(cfg *config.Config) {
 
 	// Start Router
 	router := gin.New()
-	v1.NewRouter(router, mostLoyalHotelsUseCase)
+	groupRouter := v1.NewRouter(router)
+	v1.NewDashboardRoutes(groupRouter, mostLoyalHotelsUseCase)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.HTTP.Port),

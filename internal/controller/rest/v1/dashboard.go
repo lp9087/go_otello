@@ -8,11 +8,11 @@ import (
 )
 
 type dashboardRoutes struct {
-	t usecase.FirstDashboard
+	useCase usecase.FirstDashboard
 }
 
-func newDashboardRoutes(handler *gin.RouterGroup, t usecase.FirstDashboard) {
-	r := &dashboardRoutes{t}
+func NewDashboardRoutes(handler *gin.RouterGroup, useCase usecase.FirstDashboard) {
+	r := &dashboardRoutes{useCase}
 
 	h := handler.Group("/dashboard")
 	{
@@ -24,17 +24,17 @@ type loyalHotelsResponse struct {
 	History []entity.FirstDashboard `json:"mostLoyalHotels"`
 }
 
-// @Summary     Show mostLoyalHotels
-// @Description Show all dashboards mostLoyalHotels
-// @ID          mostLoyalHotels
-// @Tags  	    dashboard
-// @Accept      json
-// @Produce     json
-// @Success     200 {object} loyalHotelsResponse
-// @Failure     500 {object} response
-// @Router      /translation/mostLoyalHotels [get]
+// @Summary		Show mostLoyalHotels
+// @Description	Show all dashboards mostLoyalHotels
+// @ID				mostLoyalHotels
+// @Tags			dashboard
+// @Accept			json
+// @Produce		json
+// @Success		200	{object}	loyalHotelsResponse
+// @Failure		500	{object}	response
+// @Router			/translation/mostLoyalHotels [get]
 func (r *dashboardRoutes) mostLoyalHotels(c *gin.Context) {
-	hotels, err := r.t.Get(c.Request.Context())
+	hotels, err := r.useCase.Get(c.Request.Context())
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, "some API problems")
 		return
