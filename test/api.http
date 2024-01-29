@@ -1,4 +1,4 @@
-GET localhost:8080/ping
+GET localhost:8080/v1/dashboard/mostLoyalHotels
 ###
 GET localhost:8080/dashboard/ping
 ###

@@ -1,0 +1,49 @@
+definitions:
+  entity.FirstDashboard:
+    properties:
+      hotelName:
+        type: string
+      id:
+        type: string
+      rates:
+        type: integer
+      roomTypes:
+        type: integer
+    type: object
+  v1.loyalHotelsResponse:
+    properties:
+      mostLoyalHotels:
+        items:
+          $ref: '#/definitions/entity.FirstDashboard'
+        type: array
+    type: object
+  v1.response:
+    properties:
+      error:
+        example: message
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /translation/mostLoyalHotels:
+    get:
+      consumes:
+      - application/json
+      description: Show all dashboards mostLoyalHotels
+      operationId: mostLoyalHotels
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.loyalHotelsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Show mostLoyalHotels
+      tags:
+      - dashboard
+swagger: "2.0"

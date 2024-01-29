@@ -1,0 +1,77 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/translation/mostLoyalHotels": {
+            "get": {
+                "description": "Show all dashboards mostLoyalHotels",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "dashboard"
+                ],
+                "summary": "Show mostLoyalHotels",
+                "operationId": "mostLoyalHotels",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.loyalHotelsResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "entity.FirstDashboard": {
+            "type": "object",
+            "properties": {
+                "hotelName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "rates": {
+                    "type": "integer"
+                },
+                "roomTypes": {
+                    "type": "integer"
+                }
+            }
+        },
+        "v1.loyalHotelsResponse": {
+            "type": "object",
+            "properties": {
+                "mostLoyalHotels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/entity.FirstDashboard"
+                    }
+                }
+            }
+        },
+        "v1.response": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "message"
+                }
+            }
+        }
+    }
+}

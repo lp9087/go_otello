@@ -3,8 +3,11 @@ package app
 import (
 	"context"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/lp9087/go_otello_dashboard_api/config"
-	"github.com/lp9087/go_otello_dashboard_api/internal/controller/rest"
+	"github.com/lp9087/go_otello_dashboard_api/internal/controller/rest/v1"
+	"github.com/lp9087/go_otello_dashboard_api/internal/usecase"
+	"github.com/lp9087/go_otello_dashboard_api/internal/usecase/repository"
 	"github.com/lp9087/go_otello_dashboard_api/pkg/postgres"
 	"log"
 	"net/http"
@@ -23,8 +26,14 @@ func Run(cfg *config.Config) {
 		log.Fatal(err)
 	}
 	defer db.Close()
+	// Use case
+	mostLoyalHotelsUseCase := usecase.NewFirstDashboardUseCase(
+		repository.NewPGFirstDashboardRepo(db.Connect),
+	)
+
 	// Start Router
-	router := rest.GetRoutes()
+	router := gin.New()
+	v1.NewRouter(router, mostLoyalHotelsUseCase)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.HTTP.Port),
