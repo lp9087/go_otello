@@ -4,22 +4,23 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lp9087/go_otello_dashboard_api/internal/entity"
 	"github.com/lp9087/go_otello_dashboard_api/internal/usecase"
+	"log"
 	"net/http"
 )
 
-type dashboardRoutes struct {
-	useCase usecase.FirstDashboard
+type mostLoyalHotelRouter struct {
+	useCase usecase.MostLoyalHotelsUseCase
 }
 
-func NewDashboardRoutes(handler *gin.RouterGroup, useCase usecase.FirstDashboard) {
-	r := &dashboardRoutes{useCase}
+func NewMostLoyalHotelsRoutes(handler *gin.RouterGroup, useCase usecase.MostLoyalHotelsUseCase) {
+	r := &mostLoyalHotelRouter{useCase}
 	{
 		handler.GET("/mostLoyalHotels", r.mostLoyalHotels)
 	}
 }
 
 type loyalHotelsResponse struct {
-	History []entity.FirstDashboard `json:"mostLoyalHotels"`
+	Hotels []entity.MostLoyalHotels `json:"mostLoyalHotels"`
 }
 
 // @Summary		Show mostLoyalHotels
@@ -30,13 +31,17 @@ type loyalHotelsResponse struct {
 // @Produce		json
 // @Success		200	{object}	loyalHotelsResponse
 // @Failure		500	{object}	response
-// @Router			/translation/mostLoyalHotels [get]
-func (r *dashboardRoutes) mostLoyalHotels(c *gin.Context) {
+// @Router			/dashboard/mostLoyalHotels [get]
+func (r *mostLoyalHotelRouter) mostLoyalHotels(c *gin.Context) {
+	var response loyalHotelsResponse
 	hotels, err := r.useCase.Get(c.Request.Context())
 	if err != nil {
+		//TODO add logger slog
+		log.Println(err)
 		errorResponse(c, http.StatusInternalServerError, "some API problems")
 		return
 	}
+	response.Hotels = hotels
 
-	c.JSON(http.StatusOK, loyalHotelsResponse{hotels})
+	c.JSON(http.StatusOK, response)
 }

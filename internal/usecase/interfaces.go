@@ -5,10 +5,10 @@ import (
 	"github.com/lp9087/go_otello_dashboard_api/internal/entity"
 )
 
-type FirstDashboardRepo interface {
-	Store(ctx context.Context) ([]entity.FirstDashboard, error)
+type MostLoyalHotelsRepo interface {
+	Store(ctx context.Context) ([]entity.MostLoyalHotels, error)
 }
 
-type FirstDashboard interface {
-	Get(ctx context.Context) ([]entity.FirstDashboard, error)
+type MostLoyalHotelsUseCase interface {
+	Get(ctx context.Context) ([]entity.MostLoyalHotels, error)
 }

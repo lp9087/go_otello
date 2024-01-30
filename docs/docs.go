@@ -16,7 +16,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/translation/mostLoyalHotels": {
+        "/dashboard/mostLoyalHotels": {
             "get": {
                 "description": "Show all dashboards mostLoyalHotels",
                 "consumes": [
@@ -48,9 +48,12 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "entity.FirstDashboard": {
+        "entity.MostLoyalHotels": {
             "type": "object",
             "properties": {
+                "externalID": {
+                    "type": "string"
+                },
                 "hotelName": {
                     "type": "string"
                 },
@@ -62,6 +65,9 @@ const docTemplate = `{
                 },
                 "roomTypes": {
                     "type": "integer"
+                },
+                "totalAmount": {
+                    "type": "integer"
                 }
             }
         },
@@ -71,7 +77,7 @@ const docTemplate = `{
                 "mostLoyalHotels": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/entity.FirstDashboard"
+                        "$ref": "#/definitions/entity.MostLoyalHotels"
                     }
                 }
             }

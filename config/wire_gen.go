@@ -7,15 +7,15 @@
 package config
 
 import (
-	"github.com/jmoiron/sqlx"
 	"github.com/lp9087/go_otello_dashboard_api/internal/usecase"
 	"github.com/lp9087/go_otello_dashboard_api/internal/usecase/repository"
+	"github.com/lp9087/go_otello_dashboard_api/pkg/postgres"
 )
 
 // Injectors from wire.go:
 
-func InitializeFirstDashboardUseCase(db *sqlx.DB) *usecase.FirstDashboardUseCase {
-	pgFirstDashboardRepo := repository.NewPGFirstDashboardRepo(db)
-	firstDashboardUseCase := usecase.NewFirstDashboardUseCase(pgFirstDashboardRepo)
-	return firstDashboardUseCase
+func InitializeMostLoyalHotelsUseCase(pg *postgres.Postgres) *usecase.MostLoyalUseCase {
+	pgMostLoyalHotelsRepo := repository.NewPGMostLoyalHotelsRepo(pg)
+	mostLoyalUseCase := usecase.NewMostLoyalHotelsUseCase(pgMostLoyalHotelsRepo)
+	return mostLoyalUseCase
 }

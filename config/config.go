@@ -25,6 +25,7 @@ type (
 		SslMode  string `env-required:"true" env:"POSTGRES_SSL"`
 		User     string `env-required:"true" env:"POSTGRES_USER"`
 		Password string `env-required:"true" env:"POSTGRES_PASSWORD"`
+		PoolMax  int    `env-required:"true" env:"POSTGRES_POOL_MAX"`
 	}
 )
 

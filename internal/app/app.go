@@ -18,21 +18,28 @@ func Run(cfg *config.Config) {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 	// Connect Database
-
-	db, err := postgres.New(&cfg.DB)
+	dbString := fmt.Sprintf("host=%s port=%s sslmode=%s dbname=%s user=%s password=%s",
+		cfg.DB.Host,
+		cfg.DB.Port,
+		cfg.DB.SslMode,
+		cfg.DB.DbName,
+		cfg.DB.User,
+		cfg.DB.Password,
+	)
+	db, err := postgres.New(dbString)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
 	// Use case
 
-	mostLoyalHotelsUseCase := config.InitializeFirstDashboardUseCase(db.Connect)
+	mostLoyalHotelsUseCase := config.InitializeMostLoyalHotelsUseCase(db)
 
 	// Start Router
 	router := gin.New()
 	v1Router := v1.NewRouter(router)
 	dashboardRouter := v1Router.Group("/dashboard")
-	v1.NewDashboardRoutes(dashboardRouter, mostLoyalHotelsUseCase)
+	v1.NewMostLoyalHotelsRoutes(dashboardRouter, mostLoyalHotelsUseCase)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.HTTP.Port),

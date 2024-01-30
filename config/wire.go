@@ -5,12 +5,12 @@ package config
 
 import (
 	"github.com/google/wire"
-	"github.com/jmoiron/sqlx"
 	"github.com/lp9087/go_otello_dashboard_api/internal/usecase"
 	"github.com/lp9087/go_otello_dashboard_api/internal/usecase/repository"
+	"github.com/lp9087/go_otello_dashboard_api/pkg/postgres"
 )
 
-func InitializeFirstDashboardUseCase(db *sqlx.DB) *usecase.FirstDashboardUseCase {
-	wire.Build(wire.Bind(new(usecase.FirstDashboardRepo), new(*repository.PGFirstDashboardRepo)), repository.NewPGFirstDashboardRepo, usecase.NewFirstDashboardUseCase)
-	return &usecase.FirstDashboardUseCase{}
+func InitializeMostLoyalHotelsUseCase(pg *postgres.Postgres) *usecase.MostLoyalUseCase {
+	wire.Build(wire.Bind(new(usecase.MostLoyalHotelsRepo), new(*repository.PGMostLoyalHotelsRepo)), repository.NewPGMostLoyalHotelsRepo, usecase.NewMostLoyalHotelsUseCase)
+	return &usecase.MostLoyalUseCase{}
 }

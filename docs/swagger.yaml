@@ -1,6 +1,8 @@
 definitions:
-  entity.FirstDashboard:
+  entity.MostLoyalHotels:
     properties:
+      externalID:
+        type: string
       hotelName:
         type: string
       id:
@@ -9,12 +11,14 @@ definitions:
         type: integer
       roomTypes:
         type: integer
+      totalAmount:
+        type: integer
     type: object
   v1.loyalHotelsResponse:
     properties:
       mostLoyalHotels:
         items:
-          $ref: '#/definitions/entity.FirstDashboard'
+          $ref: '#/definitions/entity.MostLoyalHotels'
         type: array
     type: object
   v1.response:
@@ -26,7 +30,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /translation/mostLoyalHotels:
+  /dashboard/mostLoyalHotels:
     get:
       consumes:
       - application/json

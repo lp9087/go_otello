@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/translation/mostLoyalHotels": {
+        "/dashboard/mostLoyalHotels": {
             "get": {
                 "description": "Show all dashboards mostLoyalHotels",
                 "consumes": [
@@ -36,9 +36,12 @@
         }
     },
     "definitions": {
-        "entity.FirstDashboard": {
+        "entity.MostLoyalHotels": {
             "type": "object",
             "properties": {
+                "externalID": {
+                    "type": "string"
+                },
                 "hotelName": {
                     "type": "string"
                 },
@@ -50,6 +53,9 @@
                 },
                 "roomTypes": {
                     "type": "integer"
+                },
+                "totalAmount": {
+                    "type": "integer"
                 }
             }
         },
@@ -59,7 +65,7 @@
                 "mostLoyalHotels": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/entity.FirstDashboard"
+                        "$ref": "#/definitions/entity.MostLoyalHotels"
                     }
                 }
             }
