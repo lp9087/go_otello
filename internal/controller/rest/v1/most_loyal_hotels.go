@@ -4,16 +4,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lp9087/go_otello_dashboard_api/internal/entity"
 	"github.com/lp9087/go_otello_dashboard_api/internal/usecase"
-	"log"
+	"log/slog"
 	"net/http"
 )
 
 type mostLoyalHotelRouter struct {
 	useCase usecase.MostLoyalHotelsUseCase
+	logger  *slog.Logger
 }
 
-func NewMostLoyalHotelsRoutes(handler *gin.RouterGroup, useCase usecase.MostLoyalHotelsUseCase) {
-	r := &mostLoyalHotelRouter{useCase}
+func NewMostLoyalHotelsRoutes(handler *gin.RouterGroup, logger *slog.Logger, useCase usecase.MostLoyalHotelsUseCase) {
+	r := &mostLoyalHotelRouter{useCase, logger}
 	{
 		handler.GET("/mostLoyalHotels", r.mostLoyalHotels)
 	}
@@ -36,8 +37,7 @@ func (r *mostLoyalHotelRouter) mostLoyalHotels(c *gin.Context) {
 	var response loyalHotelsResponse
 	hotels, err := r.useCase.Get(c.Request.Context())
 	if err != nil {
-		//TODO add logger slog
-		log.Println(err)
+		r.logger.Error("error", err, "http - v1 - mostLoyalHotels")
 		errorResponse(c, http.StatusInternalServerError, "some API problems")
 		return
 	}

@@ -2,10 +2,12 @@ package app
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/lp9087/go_otello_dashboard_api/config"
 	"github.com/lp9087/go_otello_dashboard_api/internal/controller/rest/v1"
+	"github.com/lp9087/go_otello_dashboard_api/pkg/logger"
 	"github.com/lp9087/go_otello_dashboard_api/pkg/postgres"
 	"log"
 	"net/http"
@@ -15,6 +17,8 @@ import (
 )
 
 func Run(cfg *config.Config) {
+	l := logger.New()
+
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 	// Connect Database
@@ -39,7 +43,7 @@ func Run(cfg *config.Config) {
 	router := gin.New()
 	v1Router := v1.NewRouter(router)
 	dashboardRouter := v1Router.Group("/dashboard")
-	v1.NewMostLoyalHotelsRoutes(dashboardRouter, mostLoyalHotelsUseCase)
+	v1.NewMostLoyalHotelsRoutes(dashboardRouter, l, mostLoyalHotelsUseCase)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.HTTP.Port),
@@ -47,7 +51,7 @@ func Run(cfg *config.Config) {
 	}
 
 	go func() {
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
