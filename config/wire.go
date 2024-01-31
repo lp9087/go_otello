@@ -14,3 +14,8 @@ func InitializeMostLoyalHotelsUseCase(pg *postgres.Postgres) *usecase.MostLoyalU
 	wire.Build(wire.Bind(new(usecase.MostLoyalHotelsRepo), new(*repository.PGMostLoyalHotelsRepo)), repository.NewPGMostLoyalHotelsRepo, usecase.NewMostLoyalHotelsUseCase)
 	return &usecase.MostLoyalUseCase{}
 }
+
+func InitializeHotelsStatisticUseCase(pg *postgres.Postgres) *usecase.StatisticUseCase {
+	wire.Build(wire.Bind(new(usecase.HotelStatisticRepo), new(*repository.PGHotelStatisticRepo)), repository.NewPGHotelStatisticRepo, usecase.NewHotelStatisticUseCase)
+	return &usecase.StatisticUseCase{}
+}

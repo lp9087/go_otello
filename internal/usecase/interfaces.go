@@ -3,6 +3,7 @@ package usecase
 import (
 	"context"
 	"github.com/lp9087/go_otello_dashboard_api/internal/entity"
+	"time"
 )
 
 //go:generate mockgen -source=interfaces.go -destination=./mocks_test.go -package=usecase_test
@@ -13,4 +14,12 @@ type MostLoyalHotelsRepo interface {
 
 type MostLoyalHotelsUseCase interface {
 	Get(ctx context.Context) ([]entity.MostLoyalHotels, error)
+}
+
+type HotelStatisticRepo interface {
+	Store(ctx context.Context, dateFrom time.Time, dateTo time.Time) (*entity.HotelStatistic, error)
+}
+
+type HotelStatisticUseCase interface {
+	Get(ctx context.Context, dateFrom time.Time, dateTo time.Time) (*entity.HotelStatistic, error)
 }

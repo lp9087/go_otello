@@ -16,7 +16,7 @@ type mostLoyalHotelRouter struct {
 func NewMostLoyalHotelsRoutes(handler *gin.RouterGroup, logger *slog.Logger, useCase usecase.MostLoyalHotelsUseCase) {
 	r := &mostLoyalHotelRouter{useCase, logger}
 	{
-		handler.GET("/mostLoyalHotels", r.mostLoyalHotels)
+		handler.GET("/most_loyal_hotels", r.mostLoyalHotels)
 	}
 }
 
@@ -32,7 +32,7 @@ type loyalHotelsResponse struct {
 // @Produce		json
 // @Success		200	{object}	loyalHotelsResponse
 // @Failure		500	{object}	response
-// @Router			/dashboard/mostLoyalHotels [get]
+// @Router			/dashboard/most_loyal_hotels [get]
 func (r *mostLoyalHotelRouter) mostLoyalHotels(c *gin.Context) {
 	var response loyalHotelsResponse
 	hotels, err := r.useCase.Get(c.Request.Context())

@@ -7,6 +7,7 @@ package usecase_test
 import (
 	context "context"
 	reflect "reflect"
+	time "time"
 
 	gomock "github.com/golang/mock/gomock"
 	entity "github.com/lp9087/go_otello_dashboard_api/internal/entity"
@@ -86,4 +87,80 @@ func (m *MockMostLoyalHotelsUseCase) Get(ctx context.Context) ([]entity.MostLoya
 func (mr *MockMostLoyalHotelsUseCaseMockRecorder) Get(ctx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockMostLoyalHotelsUseCase)(nil).Get), ctx)
+}
+
+// MockHotelStatisticRepo is a mock of HotelStatisticRepo interface.
+type MockHotelStatisticRepo struct {
+	ctrl     *gomock.Controller
+	recorder *MockHotelStatisticRepoMockRecorder
+}
+
+// MockHotelStatisticRepoMockRecorder is the mock recorder for MockHotelStatisticRepo.
+type MockHotelStatisticRepoMockRecorder struct {
+	mock *MockHotelStatisticRepo
+}
+
+// NewMockHotelStatisticRepo creates a new mock instance.
+func NewMockHotelStatisticRepo(ctrl *gomock.Controller) *MockHotelStatisticRepo {
+	mock := &MockHotelStatisticRepo{ctrl: ctrl}
+	mock.recorder = &MockHotelStatisticRepoMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockHotelStatisticRepo) EXPECT() *MockHotelStatisticRepoMockRecorder {
+	return m.recorder
+}
+
+// Store mocks base method.
+func (m *MockHotelStatisticRepo) Store(ctx context.Context, dateFrom, dateTo time.Time) (*entity.HotelStatistic, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Store", ctx, dateFrom, dateTo)
+	ret0, _ := ret[0].(*entity.HotelStatistic)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Store indicates an expected call of Store.
+func (mr *MockHotelStatisticRepoMockRecorder) Store(ctx, dateFrom, dateTo interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Store", reflect.TypeOf((*MockHotelStatisticRepo)(nil).Store), ctx, dateFrom, dateTo)
+}
+
+// MockHotelStatisticUseCase is a mock of HotelStatisticUseCase interface.
+type MockHotelStatisticUseCase struct {
+	ctrl     *gomock.Controller
+	recorder *MockHotelStatisticUseCaseMockRecorder
+}
+
+// MockHotelStatisticUseCaseMockRecorder is the mock recorder for MockHotelStatisticUseCase.
+type MockHotelStatisticUseCaseMockRecorder struct {
+	mock *MockHotelStatisticUseCase
+}
+
+// NewMockHotelStatisticUseCase creates a new mock instance.
+func NewMockHotelStatisticUseCase(ctrl *gomock.Controller) *MockHotelStatisticUseCase {
+	mock := &MockHotelStatisticUseCase{ctrl: ctrl}
+	mock.recorder = &MockHotelStatisticUseCaseMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockHotelStatisticUseCase) EXPECT() *MockHotelStatisticUseCaseMockRecorder {
+	return m.recorder
+}
+
+// Get mocks base method.
+func (m *MockHotelStatisticUseCase) Get(ctx context.Context, dateFrom, dateTo time.Time) (*entity.HotelStatistic, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", ctx, dateFrom, dateTo)
+	ret0, _ := ret[0].(*entity.HotelStatistic)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get.
+func (mr *MockHotelStatisticUseCaseMockRecorder) Get(ctx, dateFrom, dateTo interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockHotelStatisticUseCase)(nil).Get), ctx, dateFrom, dateTo)
 }

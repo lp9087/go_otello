@@ -19,3 +19,9 @@ func InitializeMostLoyalHotelsUseCase(pg *postgres.Postgres) *usecase.MostLoyalU
 	mostLoyalUseCase := usecase.NewMostLoyalHotelsUseCase(pgMostLoyalHotelsRepo)
 	return mostLoyalUseCase
 }
+
+func InitializeHotelsStatisticUseCase(pg *postgres.Postgres) *usecase.StatisticUseCase {
+	pgHotelStatisticRepo := repository.NewPGHotelStatisticRepo(pg)
+	statisticUseCase := usecase.NewHotelStatisticUseCase(pgHotelStatisticRepo)
+	return statisticUseCase
+}

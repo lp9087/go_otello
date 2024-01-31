@@ -8,3 +8,8 @@ type MostLoyalHotels struct {
 	Rates       int    `db:"RATES_AMOUNT"`
 	TotalAmount int    `db:"TOTAL_AMOUNT"`
 }
+
+type HotelStatistic struct {
+	Registered int `db:"registered"`
+	Published  int `db:"published"`
+}

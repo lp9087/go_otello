@@ -38,12 +38,14 @@ func Run(cfg *config.Config) {
 	// Use case
 
 	mostLoyalHotelsUseCase := config.InitializeMostLoyalHotelsUseCase(db)
+	hotelStatisticUseCase := config.InitializeHotelsStatisticUseCase(db)
 
 	// Start Router
 	router := gin.New()
 	v1Router := v1.NewRouter(router)
 	dashboardRouter := v1Router.Group("/dashboard")
 	v1.NewMostLoyalHotelsRoutes(dashboardRouter, l, mostLoyalHotelsUseCase)
+	v1.NewStatisticRoutes(dashboardRouter, l, hotelStatisticUseCase)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.HTTP.Port),

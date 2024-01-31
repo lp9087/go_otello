@@ -1,4 +1,6 @@
-GET localhost:8080/v1/dashboard/mostLoyalHotels
+GET localhost:8080/v1/dashboard/most_loyal_hotels
+###
+GET localhost:8080/v1/dashboard/registered_hotels?date_from=2023-01-01&date_to=2023-07-05
 ###
 GET localhost:8080/dashboard/ping
 ###

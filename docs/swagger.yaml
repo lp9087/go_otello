@@ -1,4 +1,11 @@
 definitions:
+  entity.HotelStatistic:
+    properties:
+      published:
+        type: integer
+      registered:
+        type: integer
+    type: object
   entity.MostLoyalHotels:
     properties:
       externalID:
@@ -13,6 +20,11 @@ definitions:
         type: integer
       totalAmount:
         type: integer
+    type: object
+  v1.hotelStatisticResponse:
+    properties:
+      HotelStatistic:
+        $ref: '#/definitions/entity.HotelStatistic'
     type: object
   v1.loyalHotelsResponse:
     properties:
@@ -30,7 +42,27 @@ definitions:
 info:
   contact: {}
 paths:
-  /dashboard/mostLoyalHotels:
+  /dashboard/hotel_statistic:
+    get:
+      consumes:
+      - application/json
+      description: Show amount of hotelsStatistic
+      operationId: hotelsStatistic
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.hotelStatisticResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Show hotelsStatistic
+      tags:
+      - dashboard
+  /dashboard/most_loyal_hotels:
     get:
       consumes:
       - application/json

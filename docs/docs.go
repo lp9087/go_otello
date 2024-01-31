@@ -16,7 +16,37 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/dashboard/mostLoyalHotels": {
+        "/dashboard/hotel_statistic": {
+            "get": {
+                "description": "Show amount of hotelsStatistic",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "dashboard"
+                ],
+                "summary": "Show hotelsStatistic",
+                "operationId": "hotelsStatistic",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.hotelStatisticResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dashboard/most_loyal_hotels": {
             "get": {
                 "description": "Show all dashboards mostLoyalHotels",
                 "consumes": [
@@ -48,6 +78,17 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "entity.HotelStatistic": {
+            "type": "object",
+            "properties": {
+                "published": {
+                    "type": "integer"
+                },
+                "registered": {
+                    "type": "integer"
+                }
+            }
+        },
         "entity.MostLoyalHotels": {
             "type": "object",
             "properties": {
@@ -68,6 +109,14 @@ const docTemplate = `{
                 },
                 "totalAmount": {
                     "type": "integer"
+                }
+            }
+        },
+        "v1.hotelStatisticResponse": {
+            "type": "object",
+            "properties": {
+                "HotelStatistic": {
+                    "$ref": "#/definitions/entity.HotelStatistic"
                 }
             }
         },
